@@ -88,6 +88,9 @@ public class ProfileUploadRetrieval extends AssignmentEndpoint {
     }
     try {
       var id = request.getParameter("id");
+      if (id != null && (id.contains("../") || id.contains("..\\"))) {
+          throw new IllegalArgumentException("Invalid file path");
+      }
       var catPicture =
           new File(catPicturesDirectory, (id == null ? RandomUtils.nextInt(1, 11) : id) + ".jpg");
 
